@@ -1,0 +1,584 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is swagger API lightweight docs for Course Recommendation and Management System made by Group 1 of COMP9323. Our Client server will be lanunched in localhost:3000, and our server side will be started up in localhost:5000",
+    "version": "1.0.0",
+    "title": "Course Recommendation and Management System"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "review",
+      "description": "APIs about review access and review marking submission"
+    },
+    {
+      "name": "user",
+      "description": "Access to user information"
+    },
+    {
+      "name": "enrollment",
+      "description": "Operations about enrollment records"
+    },
+    {
+      "name": "pending",
+      "description": "Operations about pending list functionalities"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/pending": {
+      "post": {
+        "tags": [
+          "pending"
+        ],
+        "summary": "Add a new chosen course from enrollment table to pending list",
+        "description": "",
+        "operationId": "addPending",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "the API will be invoked when a course is chosen from enrollment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pending"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pending Course Added successed"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/enrollmentlist": {
+      "post": {
+        "tags": [
+          "enrollment"
+        ],
+        "summary": "Insert the pending list to user's enrollment table",
+        "description": "",
+        "operationId": "PendingInsert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id,course_id",
+            "description": "the API will be invoked when a course is chosen from enrollment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pending"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pending Course Added successed"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/reviewinsert": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Insert the pending list to user's enrollment table",
+        "description": "",
+        "operationId": "ReviewInsert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "term, star, code",
+            "description": "Insert the mark transaction from user to review table",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reviewStar"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pending Course Added successed"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/pendinglistdelete": {
+      "delete": {
+        "tags": [
+          "pending"
+        ],
+        "summary": "Remove chosen pending course from pendinglist",
+        "description": "",
+        "operationId": "Pending List Delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "Pet id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete Successed"
+          },
+          "404": {
+            "description": "Record Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/recommondation/{userId}": {
+      "get": {
+        "tags": [
+          "enrollment"
+        ],
+        "summary": "Find recommended courses based on students history and course discription",
+        "description": "Find recommended courses based on students history and course discription",
+        "operationId": "GetRecommendation",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of userId",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive recommendation list",
+            "schema": {
+              "$ref": "#/definitions/recommondation"
+            }
+          },
+          "404": {
+            "description": "Recommdation not found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/search/{query}": {
+      "get": {
+        "tags": [
+          "enrollment"
+        ],
+        "summary": "Search course based on keyword input by users",
+        "description": "Dynamic Search functionality",
+        "operationId": "SearchFunction",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "description": "the keyword input by user in enrollment page",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive search result",
+            "schema": {
+              "$ref": "#/definitions/search"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/pendinglist/{uid}": {
+      "get": {
+        "tags": [
+          "pending"
+        ],
+        "summary": "Retrive user's pendinglist",
+        "description": "Pending List Display",
+        "operationId": "GetPendingList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "the user's zid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive search result",
+            "schema": {
+              "$ref": "#/definitions/pendinglist"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/review/{id}": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Retrive user's review information",
+        "description": "Retrive user's review information",
+        "operationId": "GetReviewList",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the user's zid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive search result",
+            "schema": {
+              "$ref": "#/definitions/review"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/enrollment/{id}": {
+      "get": {
+        "tags": [
+          "enrollment"
+        ],
+        "summary": "Retrive user's enrollment information",
+        "description": "Retrive user's enrollment information",
+        "operationId": "GetEnrollment",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the user's zid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive enrollment result",
+            "schema": {
+              "$ref": "#/definitions/recommondation"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Compare user information with input in login",
+        "description": "Compare user information with input in login",
+        "operationId": "Login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "the user's zid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successfully retrive enrollment result",
+            "schema": {
+              "$ref": "#/definitions/login"
+            }
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "pending": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5198786
+        },
+        "course_id": {
+          "type": "string",
+          "example": "3COMP4161"
+        }
+      }
+    },
+    "reviewStar": {
+      "type": "object",
+      "properties": {
+        "term": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3
+        },
+        "star": {
+          "type": "integer",
+          "format": "int32",
+          "example": 4
+        },
+        "code": {
+          "type": "string",
+          "example": "3COMP9323"
+        }
+      }
+    },
+    "search": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "3BINF6112"
+        },
+        "code": {
+          "type": "object",
+          "properties": {
+            "avg_star": {
+              "type": "integer",
+              "example": 5
+            },
+            "_id": {
+              "type": "string",
+              "example": "BINF6112"
+            }
+          }
+        },
+        "description": {
+          "type": "string",
+          "example": "Through a practical software project and targeted lectures this course examines various issues in the design and implementation of software systems for the analysis of large complex biological datasets and the application of mathematical and statistical methods to problems in modern life science. Example domains include analysis of gene expression and function, networks of interaction, and systems modeling"
+        },
+        "full_name": {
+          "type": "string",
+          "example": "BINF6112 Bioinformatics Project B"
+        }
+      }
+    },
+    "recommondation": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "2COMP4141"
+        },
+        "code": {
+          "type": "object",
+          "properties": {
+            "avg_star": {
+              "type": "integer",
+              "example": 3.1
+            },
+            "_id": {
+              "type": "string",
+              "example": "COMP4141"
+            }
+          }
+        },
+        "description": {
+          "type": "string",
+          "example": "Computability: formal languages and problems, Turing Machines (TMs), computability, (semi-)decidability, universal TMs, Church-Turing thesis, halting problem, reduction and undecidability proofs, examples; Complexity: run time, space, complexity classes, non-determinism and NP, polynomial reductions and NP completeness, optimisation problems and approximation, randomisation; Languages and Automata: regular expressions and languages, finite automata, determinisation, context-free grammars and languages (CFLs), Chomsky normal form, word problems, pumping lemma, push-down automata, decidability problems for CFLs; Semantics and Correctness: while programs, assertions and program correctness, Hoare logic, loops and loop invariants, relative completeness of Hoare logic (and its role in a proof of GÃ¶del's incompleteness result"
+        },
+        "full_name": {
+          "type": "string",
+          "example": "COMP4141 Theory of Computation"
+        }
+      }
+    },
+    "pendinglist": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "name": {
+          "type": "string",
+          "example": "Princple of Programming"
+        },
+        "courseId": {
+          "type": "string",
+          "example": "COMP6733"
+        },
+        "courseName": {
+          "type": "string",
+          "example": "Internet of Things"
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "COMP9021"
+        },
+        "name": {
+          "type": "string",
+          "example": "Princple of Programming"
+        },
+        "star": {
+          "type": "integer",
+          "example": 5
+        },
+        "term": {
+          "type": "integer",
+          "example": 1
+        }
+      }
+    },
+    "login": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "integer",
+              "example": "5198786"
+            },
+            "first_name": {
+              "type": "string",
+              "example": "Janeczka"
+            },
+            "last_name": {
+              "type": "string",
+              "example": "Feldmesser"
+            },
+            "password": {
+              "type": "string",
+              "example": "s8SDxvtHV2N"
+            },
+            "email": {
+              "type": "string",
+              "example": "z5198786@student.unsw.edu.au"
+            },
+            "gender": {
+              "type": "string",
+              "example": "female"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://robohash.org/quinequesed.png?size=50x50&set=set1"
+            },
+            "currentTerm": {
+              "type": "integer",
+              "example": 3
+            },
+            "role": {
+              "type": "string",
+              "example": "student"
+            }
+          }
+        }
+      }
+    }
+  }
+}

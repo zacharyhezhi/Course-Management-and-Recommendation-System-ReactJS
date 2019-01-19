@@ -1,0 +1,71 @@
+{
+  "id": 128178,
+  "num_rows": 1000,
+  "file_format": "json",
+  "name": "My Saved Schema",
+  "array": true,
+  "columns": [
+    {
+      "name": "first_name",
+      "null_percentage": 0,
+      "type": "First Name",
+      "formula": ""
+    },
+    {
+      "name": "last_name",
+      "null_percentage": 0,
+      "type": "Last Name",
+      "formula": ""
+    },
+    {
+      "name": "zid",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 5190000,
+      "max": 5200000,
+      "decimals": 0,
+      "formula": ""
+    },
+    {
+      "name": "password",
+      "null_percentage": 0,
+      "type": "Password",
+      "formula": ""
+    },
+    {
+      "name": "email",
+      "null_percentage": 0,
+      "type": "Blank",
+      "formula": "'z' + field('zid').to_s + '@student.unsw.edu.au'"
+    },
+    {
+      "name": "gender",
+      "null_percentage": 0,
+      "type": "Gender",
+      "formula": ""
+    },
+    {
+      "name": "avatar",
+      "null_percentage": 0,
+      "type": "Avatar",
+      "height": 50,
+      "width": 50,
+      "formula": ""
+    },
+    {
+      "name": "currentTerm",
+      "null_percentage": 0,
+      "type": "Number",
+      "min": 1,
+      "max": 3,
+      "decimals": 0,
+      "formula": ""
+    },
+    {
+      "name": "role",
+      "null_percentage": 0,
+      "type": "Blank",
+      "formula": "this = 'student'"
+    }
+  ]
+}
