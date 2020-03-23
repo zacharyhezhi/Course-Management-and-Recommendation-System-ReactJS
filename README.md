@@ -35,7 +35,7 @@ to download our project repository.
 
   
 
-3. Then, type **`cd comp9323-react-express-mongodb/`** to enter the folder
+3. Then, type **`cd comp9323-react-express-mongodb/`** to enter the folder.
 
   
 
