@@ -18,7 +18,7 @@
 
   
 
-2. Install npm & Node  
+2. Install npm & Node.
 - Since npm is installed with Node.js, please click this [link](https://www.npmjs.com/get-npm) to download Node.js and npm package.
   
 
